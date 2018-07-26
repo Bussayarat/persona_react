@@ -57,3 +57,5 @@ print('anger = ',dict(count)['anger'])
 # ถ้ามี anger 5 sad 7 happy 6 trust 1 , 1% = 19 --> 5/19 = ?%
 # persona_react
 # persona_react
+# persona_react
+# persona_react
