@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import tweepy, json, csv, gspread, re, string, wordlists
-# import collections
+import collections
 import numpy as np
 from collections import Counter
 from tweepy import Stream, OAuthHandler
@@ -106,6 +106,24 @@ for count in range (0, len_word):
     print(word)
 # def check_e_set
 print (sum_emo)
+# ['sadness', 'joy', None, 'anger', 'anger', None, 'anger']
+count = Counter(sum_emo)
+print(count)
+# print(list(count.elements()))
+# print(dc = count.items())
+# print(dc['anger'])
+# x = emo_set(sum_emo)
+# print(x)
+# anger = collections.Counter(sum_emo)
+# print (anger)
+# print(dict(count))
+print('anger = ',dict(count)['anger'])
 
-def emo_set(sum_emo):
-    cou
+# ใน 1% จะมีผลทางอารมณ์แต่ละด้านเป็นเท่าไหร่
+# 100% คือทั้งหมดรวมกันเป็นคะแนนดิบ  5 6 7 8 ...
+# ถ้ามี anger 5 sad 7 happy 6 trust 1 , 1% = 19 --> 5/19 = ?%
+
+
+
+
+# persona_react
