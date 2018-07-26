@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-# import tweepy, json, csv, gspread, re, string, wordlists
-# import collections
-# import numpy as np
 from collections import Counter
 from pythainlp.tokenize import word_tokenize, WhitespaceTokenizer, sent_tokenize
 
