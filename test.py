@@ -58,3 +58,5 @@ print('anger = ',dict(count)['anger'])
 # ใน 1% จะมีผลทางอารมณ์แต่ละด้านเป็นเท่าไหร่
 # 100% คือทั้งหมดรวมกันเป็นคะแนนดิบ  5 6 7 8 ...
 # ถ้ามี anger 5 sad 7 happy 6 trust 1 , 1% = 19 --> 5/19 = ?%
+# persona_react
+# persona_react
