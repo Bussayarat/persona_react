@@ -49,3 +49,5 @@ def search_emotoins(dict, lookup):
 def cal_emo(emo_list):
     if anger = 0, fear =0 , glade = 0 :
         print (mood)
+# persona_react
+# persona_react
