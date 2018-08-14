@@ -53,3 +53,5 @@ for key,value in count.items():
     print(value)
     if not (key is None):
         exec("%s = %d" % (key,value))
+# test_react
+# persona_react
