@@ -12,7 +12,7 @@ from pythainlp.tokenize import word_tokenize, WhitespaceTokenizer, sent_tokenize
 
 # cpltd
 # def set2initial_value():
-
+#
 # def set_value(count):
 #     for key,value in count.items():
 #         print(key)
@@ -26,6 +26,7 @@ def search_dict(dict, lookup):
         for word in value:
             if lookup in word:
                 return key
+
 # just for debug
 emo_dict_2 = {
 'anger' : ['แย่','โคตร'],
@@ -52,5 +53,3 @@ for key,value in count.items():
     print(value)
     if not (key is None):
         exec("%s = %d" % (key,value))
-persona_react
-# persona_react
