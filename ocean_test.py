@@ -49,7 +49,7 @@ def get_emotion_summary(message_list, emotion_dict):
         summary += get_emotion_in_text(text, emotion_dict)
     return summary
 
-def value_emotion(sum_emo):
+def emotion_value(sum_emo):
     emotions_set = ['anger','sadness','joy','disgust','surprise','trust','fear','anticipation']
     emo_set = []
     or numb in range(0,7): #innitial = anger emotion_set[0]
