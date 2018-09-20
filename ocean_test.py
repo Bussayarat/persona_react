@@ -49,6 +49,24 @@ def get_emotion_summary(message_list, emotion_dict):
         summary += get_emotion_in_text(text, emotion_dict)
     return summary
 
+def value_emotion(sum_emo):
+    emotions_set = ['anger','sadness','joy','disgust','surprise','trust','fear','anticipation']
+    emo_set = []
+    or numb in range(0,7): #innitial = anger emotion_set[0]
+        if not (sum_emo is None): #if in sum_emo have None ,will pass None
+            if emotions_set[numb] in str(sum_emo):
+                emo = emotions_set[numb]
+                count = Counter(sum_emo)
+                no_emo = count[emo]
+                exec("%s = %d" % (emo, no_emo))
+                emo_set.append(emo)
+            else:
+                emo = emotions_set[numb]
+                no_emo = 0
+                exec("%s = %d" % (emo, no_emo))
+                emo_set.append(emo)
+    del sum_emo
+    return(emo_set)
 
 # def o_ocean(sum_emo, message):
 #     emotion_set = ['anger','sadness', 'joy','disgust','surprise','trust','fear','anticipation']
