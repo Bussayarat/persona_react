@@ -52,20 +52,37 @@ def emotion_value(sum_emo):
     return(emo_set)
 
 def o_ocean(emo_set):
+    cnt = Counter(emo_set)
+    anger = cnt['anger']
+    sadness = cnt['sadness']
+    joy = cnt['joy']
+    disgust = cnt['disgust']
+    surprise = cnt['surprise']
+    trust = cnt['trust']
+    fear = cnt['fear']
+    anticipation = cnt['anticipation']
+    # emo_set = [0,1,2,3,4,5,6,7]
     # emotions_set = ['anger','sadness','joy','disgust','surprise','trust','fear','anticipation'] #0.25
     # amount = len(message)
-    if anticipation > anger+sadness+joy+disgust+surprise+trust+fear:
+    mood = anger + sadness + joy + disgust + surprise+trust + fear
+    if anticipation > mood:
         openness = 100/(joy + surprise + trust + (anticipation*2))
     else:
         openness = 'low'
     return openness
 
-def c_ocean(message, emo_set):
-    amount = len(message)
-    # พิสัยระหว่างความีระเบียบ กับความไร้กังวล โน้มเอียงที่จะเป็นคนเจ้าระเบียบที่เชื่อถือได้ 
-    # มีวินัย ชอบใจพฤติกรรมตามแผนมากกว่าจะทำอะไรแบบทันทีทันใด 
-    # ดื้อและหมกมุ่น 
-    # และคนที่มีลักษณะเช่นนี้ต่ำแม้จะยืดหยุ่นได้และทำอะไรได้โดยไม่ต้องคิด แต่ก็อาจมองได้ว่าเป็นคนไม่เอาใจใส่และเชื่อถือไม่ได้
+def c_ocean(amount, emo_set):
+    cnt = Counter(emo_set)
+    anger = cnt['anger']
+    sadness = cnt['sadness']
+    joy = cnt['joy']
+    disgust = cnt['disgust']
+    surprise = cnt['surprise']
+    trust = cnt['trust']
+    fear = cnt['fear']
+    anticipation = cnt['anticipation']
+    # amount = len(message)
+
     if surprise+anticipation < trust:
         if 100/(joy+trust/amount) > 0.5:
             # high > 70
@@ -77,18 +94,23 @@ def c_ocean(message, emo_set):
         conscientiousness = 'low'
     return conscientiousness
 
-def e_ocean(message, mo_set):
-    amount = len(message)
-    # โดยเป็นพิสัยระหว่างคนเปิดรับสังคม-คนกระตือรือร้น 
-    # กับคนชอบอยู่คนเดียว-คนสงวนท่าที เป็นพลัง อารมณ์เชิงบวก surgency 
-    # ความมั่นใจในตน ความชอบเข้าสังคม และความโน้มเอียงที่จะสืบหาสิ่งเร้าร่วมกับผู้อื่น และชอบพูด 
-    # ลักษณะนี้ต่ำ เป็นคนคิดเยอะ
-    
+def e_ocean(amount, emo_set):
+    # amount = len(message)
+    cnt = Counter(emo_set)
+    anger = cnt['anger']
+    sadness = cnt['sadness']
+    joy = cnt['joy']
+    disgust = cnt['disgust']
+    surprise = cnt['surprise']
+    trust = cnt['trust']
+    fear = cnt['fear']
+    anticipation = cnt['anticipation']
+
     if joy+trust+anticipation > sadness+fear+anger:
         anticipation/amount
         if anticipation > 0.5:
             # high > 70
-            extraversion = 100/(joy+anticipation))
+            extraversion = 100/(joy+anticipation)
         else:
             # medium < 70, > 50 --> 0.7
             extraversion = (100/(joy+anticipation+surprise)) - 0.25
@@ -97,13 +119,15 @@ def e_ocean(message, mo_set):
     return extraversion
 
 def a_ocean(emo_set):
-    # โดยเป็นพิสัยระหว่างความเป็นมิตร-เห็นอกเห็นใจผู้อื่น
-    # กับความเป็นคนช่างวิเคราะห์-ไม่ค่อยยุ่งกับผู้อื่น เป็นความโน้มเอียงที่จะเห็นอกเห็นใจผู้อื่นและร่วมมือกับผู้อื่น
-    # เชื่อใจผู้อื่นและความต้องการช่วย อารมณ์ดีตามปกติ
-    # แต่ในระดับสูง เป็นคนซื่อ ๆ หรือยอมคนอื่น
-    # ระดับต่ำชอบแข่งหรือท้าท้ายผู้อื่น และชอบเถียงหรือเชื่อใจไม่ได้
-    # disgust = low
-    # joy = high
+    cnt = Counter(emo_set)
+    anger = cnt['anger']
+    sadness = cnt['sadness']
+    joy = cnt['joy']
+    disgust = cnt['disgust']
+    surprise = cnt['surprise']
+    trust = cnt['trust']
+    fear = cnt['fear']
+    anticipation = cnt['anticipation']
 
     if joy > disgust+anger:
         if 100/(joy+surprise) >= 1:
@@ -111,17 +135,23 @@ def a_ocean(emo_set):
             agreeableness = 100/((joy+trust+surprise)-(anger+sadness))
         else:
             # medium < 70, > 50 --> 0.7
+            agreeableness = 100/joy+trust+surprise
     else:
         agreeableness = 'low'
 
     return agreeableness
 
-def n_ocean(message, mo_set):
-    amount = len(message)
-    # โดยเป็นพิสัยระหว่างความอ่อนไหว-ความกังวลใจ กับความไร้กังวล-ความมั่นใจ
-    # เป็นความโน้มเอียงที่จะประสบกับอารมณ์เชิงลบได้ง่าย เช่นความโกรธ ความวิตกกังวล ความเศร้าซึม และความรู้สึกอ่อนแอ
-    # แต่ก็อาจมองได้ว่าเป็นคนที่ไม่สร้างกำลังใจหรือไม่ค่อยสนใจ ส่วนคนที่มีอารมณ์ไม่เสถียรอาจจะไวปฏิกิริยาและขี้ตื่น
-    # บ่อยครั้งมีพลังแบบอยู่นิ่งไม่ได้ แต่ก็อาจมองได้ว่าเป็นคนอารมณ์ไม่เสถียรและไม่มั่นใจ
+def n_ocean(amount, emo_set):
+    # amount = len(message)
+    cnt = Counter(emo_set)
+    anger = cnt['anger']
+    sadness = cnt['sadness']
+    joy = cnt['joy']
+    disgust = cnt['disgust']
+    surprise = cnt['surprise']
+    trust = cnt['trust']
+    fear = cnt['fear']
+    anticipation = cnt['anticipation']
 
     if 100/(anger+sadness+joy+disgust+surprise+trust+fear+anticipation) <= 1:
         negative = anger+sadness+fear+disgust
