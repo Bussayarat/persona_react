@@ -68,6 +68,28 @@ def emotion_value(sum_emo):
     del sum_emo
     return(emo_set)
 
+def o_ocean(emo_set):
+    # emotions_set = ['anger','sadness','joy','disgust','surprise','trust','fear','anticipation'] #0.25
+    # amount = len(message)
+    if anticipation > (anger+sadness+joy+disgust+surprise+trust+fear):
+        openness = 100/(joy + surprise + trust + (anticipation*2))
+    else:
+        openness = 'low'
+    return openness
+
+def c_ocean(message, emo_set):
+    amount = len(message)
+    # พิสัยระหว่างความีระเบียบ กับความไร้กังวล โน้มเอียงที่จะเป็นคนเจ้าระเบียบที่เชื่อถือได้ 
+    # มีวินัย ชอบใจพฤติกรรมตามแผนมากกว่าจะทำอะไรแบบทันทีทันใด 
+    # ดื้อและหมกมุ่น 
+    # และคนที่มีลักษณะเช่นนี้ต่ำแม้จะยืดหยุ่นได้และทำอะไรได้โดยไม่ต้องคิด แต่ก็อาจมองได้ว่าเป็นคนไม่เอาใจใส่และเชื่อถือไม่ได้
+    if surprise+anticipation < trust:
+        if 100/(joy+trust/amount) > 0.5:
+        conscientiousness = 100/((joy+trust)-(surprise+anticipation))
+    else:
+        conscientiousness = 'low'
+    return conscientiousness
+
 # def o_ocean(sum_emo, message):
 #     emotion_set = ['anger','sadness', 'joy','disgust','surprise','trust','fear','anticipation']
 #     cnt = Counter(sum_emo)
