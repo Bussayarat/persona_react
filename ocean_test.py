@@ -96,6 +96,44 @@ def e_ocean(message, mo_set):
         extraversion = 'low'
     return extraversion
 
+def a_ocean(emo_set):
+    # โดยเป็นพิสัยระหว่างความเป็นมิตร-เห็นอกเห็นใจผู้อื่น
+    # กับความเป็นคนช่างวิเคราะห์-ไม่ค่อยยุ่งกับผู้อื่น เป็นความโน้มเอียงที่จะเห็นอกเห็นใจผู้อื่นและร่วมมือกับผู้อื่น
+    # เชื่อใจผู้อื่นและความต้องการช่วย อารมณ์ดีตามปกติ
+    # แต่ในระดับสูง เป็นคนซื่อ ๆ หรือยอมคนอื่น
+    # ระดับต่ำชอบแข่งหรือท้าท้ายผู้อื่น และชอบเถียงหรือเชื่อใจไม่ได้
+    # disgust = low
+    # joy = high
+
+    if joy > disgust+anger:
+        if 100/(joy+surprise) >= 1:
+            # high > 70
+            agreeableness = 100/((joy+trust+surprise)-(anger+sadness))
+        else:
+            # medium < 70, > 50 --> 0.7
+    else:
+        agreeableness = 'low'
+
+    return agreeableness
+
+def n_ocean(message, mo_set):
+    amount = len(message)
+    # โดยเป็นพิสัยระหว่างความอ่อนไหว-ความกังวลใจ กับความไร้กังวล-ความมั่นใจ
+    # เป็นความโน้มเอียงที่จะประสบกับอารมณ์เชิงลบได้ง่าย เช่นความโกรธ ความวิตกกังวล ความเศร้าซึม และความรู้สึกอ่อนแอ
+    # แต่ก็อาจมองได้ว่าเป็นคนที่ไม่สร้างกำลังใจหรือไม่ค่อยสนใจ ส่วนคนที่มีอารมณ์ไม่เสถียรอาจจะไวปฏิกิริยาและขี้ตื่น
+    # บ่อยครั้งมีพลังแบบอยู่นิ่งไม่ได้ แต่ก็อาจมองได้ว่าเป็นคนอารมณ์ไม่เสถียรและไม่มั่นใจ
+
+    if 100/(anger+sadness+joy+disgust+surprise+trust+fear+anticipation) <= 1:
+        negative = anger+sadness+fear+disgust
+        positive = joy+trust+anticipation+surprise
+        if negative > positive:
+            neuroticism = (positive+negative)/amount
+        else:
+            neuroticism = 100/(positive-negative)+1
+    else:
+        neuroticism = 'low'
+    return neuroticism
+
 test = ['แต่ละวันดูแย่มากโคตรแย่ของแย่', 'กระหายชัยชนะเกินไปก็เสียอารมณ์']
 
 sum_emo = get_emotion_summary(test, emo_dict_2)
