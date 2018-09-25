@@ -164,6 +164,88 @@ def n_ocean(amount, emo_set):
         neuroticism = 'low'
     return neuroticism
 
+def e_or_i(ocean):
+    o = ocean[0]
+    c = ocean[1]
+    e = ocean[2]
+    a = ocean[3]
+    n = ocean[4]
+
+    persona = ['e_per','i_per']
+
+    # check E or I
+    if o != 'low' and e != 'low':
+        if any([max(ocean) == o, max(ocean) == e]):
+            p_per = o+e
+            e_per = o+e
+            first_op = e_per
+        else:
+            if all([max(ocean) == c, a>o, a>e, a>n]):
+                i_per = a+c
+                first_op = i_per
+            else:
+                if i_per-e_per > 0:
+                    first_op = i_per
+                else:
+                    first_op = e_per
+    else:
+        first_op = i_per
+
+    return(first_op)
+
+def t_or_f(ocean, first_op):
+    o = ocean[0]
+    c = ocean[1]
+    e = ocean[2]
+    a = ocean[3]
+    n = ocean[4]
+    persona = ['t_per','f_per']
+
+    # check T or F
+    if all([max(ocean) == c, a == 'low']):
+        second_op = t_per
+    else:
+        second_op = f_per
+    return(second_op)
+
+def j_or_p(ocean):
+    o = ocean[0]
+    c = ocean[1]
+    e = ocean[2]
+    a = ocean[3]
+    n = ocean[4]
+    persona = ['j_per','p_per']
+
+    # check J or P
+    if all([o != 'low', e != 'low', n == 'low']):
+        third_op = p_per
+    else:
+        if max(ocean) == c:
+            third_op = j_per
+        else:
+            if any([max(ocean) == o, max(ocean) == e]):
+                third_op = p_per
+            else:
+                third_op = j_per
+    return(third_op)
+
+def s_or_n(ocean):
+    o = ocean[0]
+    c = ocean[1]
+    e = ocean[2]
+    a = ocean[3]
+    n = ocean[4]
+    persona = ['s_per','n_per']
+
+    # check S or N
+    if all([max(ocean) == c, o != 'low', n == 'low']):
+        fourth_op = s_per
+    else:
+        fourth_op = n_per
+
+    return(fourth_op)
+
+
 test = ['แต่ละวันดูแย่มากโคตรแย่ของแย่', 'กระหายชัยชนะเกินไปก็เสียอารมณ์']
 
 sum_emo = get_emotion_summary(test, emo_dict_2)
