@@ -5,8 +5,8 @@ import os
 import sys
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-from collections import Counter
 import question_similaity
+from collections import Counter
 from pythainlp.tokenize import word_tokenize
 scope = [
     "https://spreadsheets.google.com/feeds",
@@ -81,6 +81,8 @@ def get_ocean(emo_set):
     amount = len(emo_set)
 
     sum_mood = anger + sadness + joy + disgust + surprise + trust + fear + anticipation
+    if sum_mood != 0:
+        sum_mood = 0
 
     if anticipation > sum_mood - anticipation:
         openness = 100 / (joy + surprise + trust + (anticipation * 2))
@@ -132,6 +134,7 @@ def get_ocean(emo_set):
 
 
 def personality(o, c, e, a, n):
+
     max_ocean = max([o, c, e, a, n])
 
     if o != 0 and e != 0:
@@ -178,7 +181,7 @@ def personality(o, c, e, a, n):
     return first_op, second_op, third_op, fourth_op
 
 
-def get_response(message, ans_type):
+def get_response(message, ans_type = 'x'):
     global question_answer
     global find_similar
     if question_answer == None:
@@ -187,12 +190,12 @@ def get_response(message, ans_type):
     # print(message)
     question = find_similar.get_similarity(message, theshold=0.3)
     if question:
-        response = question_answer[question][ans_type]
+        response = question_answer[question]['x']
     else:
         question = "ไม่พบคำถามที่ใกล้เคียง"
         response = "ไม่ทราบจ้า"
 
-    return question, response
+    return '{} - {}'.format(ans_type,question), response
 
 
 def get_personality(message_list, persona_dict=get_emotion_dict()):
@@ -203,8 +206,12 @@ def get_personality(message_list, persona_dict=get_emotion_dict()):
     return persona
 
 test = ["แต่ละวันดูแย่มากโคตรแย่ของแย่", "กระหายชัยชนะเกินไปก็เสียอารมณ์","แต่ละวันดูแย่มากโคตรแย่ของแย่", "กระหายชัยชนะเกินไปก็เสียอารมณ์","แต่ละวันดูแย่มากโคตรแย่ของแย่", "กระหายชัยชนะเกินไปก็เสียอารมณ์"]
-
-sum_emo = get_personality(test)
-print("\n\n* sum emo is ", sum_emo)
-print("\n\n+ count", Counter(sum_emo))
-print("\n\n+++++++++++++++++++ sum on sum is +++++++++++++++++++ \n\n", sum_emo)
+[i,k,l,j]
+question = 'ทำไมวันนี้ข้อมูลไม่เข้า'
+persona = get_personality(test)
+persona = ''.join(persona)
+ans ,sum_emo = get_response(question, persona)
+print (ans,'\n',sum_emo)
+# print("\n\n* sum emo is ", sum_emo)
+# print("\n\n+ count", Counter(sum_emo))
+# print("\n\n+++++++++++++++++++ sum on sum is +++++++++++++++++++ \n\n", sum_emo)
